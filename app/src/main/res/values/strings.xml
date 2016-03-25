@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">气泡</string>
+    <string name="str_clickOne">图片气泡</string>
+    <string name="str_clickTwo">圆圈气泡</string>
+
+</resources>

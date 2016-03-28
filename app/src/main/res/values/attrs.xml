@@ -1,0 +1,21 @@
+<resources>
+    <declare-styleable name="BubbleIconLayout">
+
+        <attr name="bubble_pic_one"
+
+            format="reference" />
+
+        <attr name="bubble_pic_two"
+
+            format="reference" />
+
+        <attr name="bubble_pic_three"
+
+            format="reference" />
+
+        <attr name="bubble_pic_four"
+
+            format="reference" />
+
+    </declare-styleable>
+</resources>

@@ -1,13 +1,17 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cl="http://schemas.android.com/apk/res/com.example.vince.bubbledemo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bd090809">
+    android:background="@mipmap/sea">
 
     <com.example.vince.bubbledemo.control.BubbleIconLayout
         android:id="@+id/Bubble_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        cl:bubble_pic_four="@mipmap/qipao4"
+        cl:bubble_pic_one="@mipmap/qipao1"
+        cl:bubble_pic_three="@mipmap/qipao3"
+        cl:bubble_pic_two="@mipmap/qipao2" />
 
 </RelativeLayout>

@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -23,10 +26,10 @@ public class BubbleIconLayout extends View {
     private Random random = new Random();// 生成随机数
     private int width, height;
     private boolean starting = false;
-    private Bitmap icon1;
-    private Bitmap icon2;
-    private Bitmap icon3;
-    private Bitmap icon4;
+    private Bitmap iconOne;
+    private Bitmap iconTwo;
+    private Bitmap iconThree;
+    private Bitmap iconFour;
     private boolean isVisible = true;//界面是否处于隐藏的状态
 
     public BubbleIconLayout(Context context) {
@@ -35,10 +38,18 @@ public class BubbleIconLayout extends View {
 
     public BubbleIconLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        icon1 = BitmapFactory.decodeResource(getResources(), R.mipmap.qipao1);
-        icon2 = BitmapFactory.decodeResource(getResources(), R.mipmap.qipao2);
-        icon3 = BitmapFactory.decodeResource(getResources(), R.mipmap.qipao3);
-        icon4 = BitmapFactory.decodeResource(getResources(), R.mipmap.qipao4);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BubbleIconLayout);
+
+        BitmapDrawable drawable_one = (BitmapDrawable)a.getDrawable(R.styleable.BubbleIconLayout_bubble_pic_one);
+        BitmapDrawable drawable_two = (BitmapDrawable)a.getDrawable(R.styleable.BubbleIconLayout_bubble_pic_two);
+        BitmapDrawable drawable_three = (BitmapDrawable)a.getDrawable(R.styleable.BubbleIconLayout_bubble_pic_three);
+        BitmapDrawable drawable_four = (BitmapDrawable)a.getDrawable(R.styleable.BubbleIconLayout_bubble_pic_four);
+
+        iconOne = drawable_one.getBitmap();
+        iconTwo = drawable_two.getBitmap();
+        iconThree = drawable_three.getBitmap();
+        iconFour = drawable_four.getBitmap();
     }
 
     public BubbleIconLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -55,7 +66,7 @@ public class BubbleIconLayout extends View {
             new Thread() {
                 public void run() {
                     while (true) {
-                        if(!isVisible){//当activity处于不可见状态时把线程关闭
+                        if (!isVisible) {//当activity处于不可见状态时把线程关闭
                             starting = false;
                             break;
                         }
@@ -73,7 +84,7 @@ public class BubbleIconLayout extends View {
                         bubble.setFlag(flag);
                         bubble.setSpeedY(speedY);
 
-                        switch (flag) {
+                        switch ( random.nextInt(3)) {//在四个地方随机出现
                             case 0:
                                 bubble.setX(width);
                                 break;
@@ -109,17 +120,17 @@ public class BubbleIconLayout extends View {
             int i;
             switch (bubble.flag) {
                 case 0:
-                    if (bubble.getX() - icon1.getWidth() / 2 <= 0) {
+                    if (bubble.getX() - iconOne.getWidth() / 2 <= 0) {
                         bubbles.remove(bubble);
-                    } else if (bubble.getX() + icon1.getWidth() / 2 >= width) {
+                    } else if (bubble.getX() + iconOne.getWidth() / 2 >= width) {
                         bubbles.remove(bubble);
                     } else {
 
-                        if (bubble.getX() + bubble.getSpeedX() <= icon1.getWidth() / 2) {
-                            bubble.setX(icon1.getWidth() / 2);
+                        if (bubble.getX() + bubble.getSpeedX() <= iconOne.getWidth() / 2) {
+                            bubble.setX(iconOne.getWidth() / 2);
                         } else if (bubble.getX() + bubble.getSpeedX() >= width
-                                - icon1.getWidth() / 2) {
-                            bubble.setX(width - icon1.getWidth() / 2);
+                                - iconOne.getWidth() / 2) {
+                            bubble.setX(width - iconOne.getWidth() / 2);
                         } else {
                             bubble.setX(bubble.getX() + bubble.getSpeedX());
                         }
@@ -130,23 +141,23 @@ public class BubbleIconLayout extends View {
                         }
 
                         i = bubbles.indexOf(bubble);
-                        if (i >= 0 && i < bubbles.size()){
+                        if (i >= 0 && i < bubbles.size()) {
                             bubbles.set(i, bubble);
                         }
-                        canvas.drawBitmap(icon1, bubble.getX(), bubble.getY(), null);
+                        canvas.drawBitmap(iconOne, bubble.getX(), bubble.getY(), null);
                     }
                     break;
                 case 1:
-                    if (bubble.getX() - icon2.getWidth() / 2 <= 0) {
+                    if (bubble.getX() - iconTwo.getWidth() / 2 <= 0) {
                         bubbles.remove(bubble);
-                    } else if (bubble.getX() + icon2.getWidth() / 2 >= width) {
+                    } else if (bubble.getX() + iconTwo.getWidth() / 2 >= width) {
                         bubbles.remove(bubble);
                     } else {
-                        if (bubble.getX() + bubble.getSpeedX() <= icon2.getWidth() / 2) {
-                            bubble.setX(icon2.getWidth() / 2);
+                        if (bubble.getX() + bubble.getSpeedX() <= iconTwo.getWidth() / 2) {
+                            bubble.setX(iconTwo.getWidth() / 2);
                         } else if (bubble.getX() + bubble.getSpeedX() >= width
-                                - icon2.getWidth() / 2) {
-                            bubble.setX(width - icon2.getWidth() / 2);
+                                - iconTwo.getWidth() / 2) {
+                            bubble.setX(width - iconTwo.getWidth() / 2);
                         } else {
                             bubble.setX(bubble.getX() + bubble.getSpeedX());
                         }
@@ -157,24 +168,24 @@ public class BubbleIconLayout extends View {
                         }
 
                         i = bubbles.indexOf(bubble);
-                        if (i >= 0 && i < bubbles.size()){
+                        if (i >= 0 && i < bubbles.size()) {
                             bubbles.set(i, bubble);
                         }
 
-                        canvas.drawBitmap(icon2, bubble.getX(), bubble.getY(), null);
+                        canvas.drawBitmap(iconTwo, bubble.getX(), bubble.getY(), null);
                     }
                     break;
                 case 2:
-                    if (bubble.getX() - icon3.getWidth() / 2 <= 0) {
+                    if (bubble.getX() - iconThree.getWidth() / 2 <= 0) {
                         bubbles.remove(bubble);
-                    } else if (bubble.getX() + icon3.getWidth() / 2 >= width) {
+                    } else if (bubble.getX() + iconThree.getWidth() / 2 >= width) {
                         bubbles.remove(bubble);
                     } else {
-                        if (bubble.getX() + bubble.getSpeedX() <= icon3.getWidth() / 2) {
-                            bubble.setX(icon3.getWidth() / 2);
+                        if (bubble.getX() + bubble.getSpeedX() <= iconThree.getWidth() / 2) {
+                            bubble.setX(iconThree.getWidth() / 2);
                         } else if (bubble.getX() + bubble.getSpeedX() >= width
-                                - icon3.getWidth() / 2) {
-                            bubble.setX(width - icon3.getWidth() / 2);
+                                - iconThree.getWidth() / 2) {
+                            bubble.setX(width - iconThree.getWidth() / 2);
                         } else {
                             bubble.setX(bubble.getX() + bubble.getSpeedX());
                         }
@@ -183,24 +194,24 @@ public class BubbleIconLayout extends View {
                             bubbles.remove(bubble);
                         }
                         i = bubbles.indexOf(bubble);
-                        if (i >= 0 && i < bubbles.size()){
+                        if (i >= 0 && i < bubbles.size()) {
                             bubbles.set(i, bubble);
                         }
 
-                        canvas.drawBitmap(icon3, bubble.getX(), bubble.getY(), null);
+                        canvas.drawBitmap(iconThree, bubble.getX(), bubble.getY(), null);
                     }
                     break;
                 case 3:
-                    if (bubble.getX() - icon4.getWidth() / 2 <= 0) {
+                    if (bubble.getX() - iconFour.getWidth() / 2 <= 0) {
                         bubbles.remove(bubble);
-                    } else if (bubble.getX() + icon4.getWidth() / 2 >= width) {
+                    } else if (bubble.getX() + iconFour.getWidth() / 2 >= width) {
                         bubbles.remove(bubble);
                     } else {
-                        if (bubble.getX() + bubble.getSpeedX() <= icon4.getWidth() / 2) {
-                            bubble.setX(icon4.getWidth() / 2);
+                        if (bubble.getX() + bubble.getSpeedX() <= iconFour.getWidth() / 2) {
+                            bubble.setX(iconFour.getWidth() / 2);
                         } else if (bubble.getX() + bubble.getSpeedX() >= width
-                                - icon4.getWidth() / 2) {
-                            bubble.setX(width - icon4.getWidth() / 2);
+                                - iconFour.getWidth() / 2) {
+                            bubble.setX(width - iconFour.getWidth() / 2);
                         } else {
                             bubble.setX(bubble.getX() + bubble.getSpeedX());
                         }
@@ -209,17 +220,17 @@ public class BubbleIconLayout extends View {
                             bubbles.remove(bubble);
                         }
                         i = bubbles.indexOf(bubble);
-                        if (i >= 0 && i < bubbles.size()){
+                        if (i >= 0 && i < bubbles.size()) {
                             bubbles.set(i, bubble);
                         }
 
-                        canvas.drawBitmap(icon4, bubble.getX(), bubble.getY(), null);
+                        canvas.drawBitmap(iconFour, bubble.getX(), bubble.getY(), null);
                     }
                     break;
             }
         }
         // 刷新屏幕
-        if(isVisible){
+        if (isVisible) {
             invalidate();
         }
     }

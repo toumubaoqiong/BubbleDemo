@@ -2,4 +2,4 @@
 模拟气泡从水底升起动画
 
 #Screenshot
-![image](https://github.com/toumubaoqiong/BubbleDemo/screenshot/bubble.png)
+![image](https://raw.githubusercontent.com/toumubaoqiong/BubbleDemo/master/screenshot/bubble.png)

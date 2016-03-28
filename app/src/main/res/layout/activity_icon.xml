@@ -2,9 +2,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000">
+    android:background="#bd090809">
 
     <com.example.vince.bubbledemo.control.BubbleIconLayout
+        android:id="@+id/Bubble_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />

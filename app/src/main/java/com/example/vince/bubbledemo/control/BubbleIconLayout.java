@@ -27,6 +27,7 @@ public class BubbleIconLayout extends View {
     private Bitmap icon2;
     private Bitmap icon3;
     private Bitmap icon4;
+    private boolean isVisible = true;//界面是否处于隐藏的状态
 
     public BubbleIconLayout(Context context) {
         super(context);
@@ -54,8 +55,12 @@ public class BubbleIconLayout extends View {
             new Thread() {
                 public void run() {
                     while (true) {
+                        if(!isVisible){//当activity处于不可见状态时把线程关闭
+                            starting = false;
+                            break;
+                        }
                         try {
-                            Thread.sleep(random.nextInt(3) * 1000);
+                            Thread.sleep(random.nextInt(3) * 500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -212,10 +217,15 @@ public class BubbleIconLayout extends View {
                     }
                     break;
             }
-
         }
         // 刷新屏幕
-        invalidate();
+        if(isVisible){
+            invalidate();
+        }
+    }
+
+    public void setIsVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 
     // 内部VO，不需要太多注释吧？

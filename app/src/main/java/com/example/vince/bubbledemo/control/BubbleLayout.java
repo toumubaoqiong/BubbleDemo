@@ -24,6 +24,7 @@ public class BubbleLayout extends View {
 	private Random random = new Random();// 生成随机数
 	private int width, height;
 	private boolean starting = false;
+	private boolean isVisible = true;//界面是否处于隐藏的状态
 
 	public BubbleLayout(Context context) {
 		super(context);
@@ -47,8 +48,12 @@ public class BubbleLayout extends View {
 			new Thread() {
 				public void run() {
 					while (true) {
+						if(!isVisible){
+							starting = false;
+							break;
+						}
 						try {
-							Thread.sleep(random.nextInt(3) * 300);
+							Thread.sleep(random.nextInt(3) * 500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -131,7 +136,17 @@ public class BubbleLayout extends View {
 			}
 		}
 		// 刷新屏幕
-		invalidate();
+		if(isVisible){
+			invalidate();
+		}
+	}
+
+	public void setIsVisible(boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+
+	public void setStarting(boolean starting) {
+		this.starting = starting;
 	}
 
 	// 内部VO，不需要太多注释吧？

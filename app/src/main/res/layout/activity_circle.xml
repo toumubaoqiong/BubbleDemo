@@ -5,6 +5,7 @@
     android:background="#000">
 
     <com.example.vince.bubbledemo.control.BubbleLayout
+        android:id="@+id/Bubble_circle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
